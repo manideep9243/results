@@ -8,16 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body, html { 
-      height:100%; 
-      overflow:hidden; 
-      background:#000; 
-      color:white; 
-      font-family:'Orbitron',sans-serif; 
-    }
-
-    /* Header with image - NO dividing line */
+     /* Header with image - NO dividing line */
     .header {
       width: 100%;
       padding: 15px 0;
@@ -29,8 +20,8 @@
     }
 
     .header img {
-      max-width: 90%;
-      max-height: 140px;          /* adjust this value if needed */
+      max-width: 250%;
+      max-height: 200px;          /* adjust this value if needed */
       height: auto;
       display: block;
       margin: 0 auto;
@@ -51,19 +42,21 @@
       overflow-y: auto;
     }
 
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html { height:100%; overflow:hidden; background:#000; color:white; font-family:'Orbitron',sans-serif; }
+
+    #bg-video { position:fixed; right:0; bottom:0; min-width:100%; min-height:100%; z-index:-2; opacity:0.7; }
+    .overlay { position:fixed; inset:0; background:linear-gradient(135deg,rgba(10,0,70,0.93),rgba(120,0,200,0.6)); z-index:-1; }
+
     .container {
       height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
       text-align:center; padding:1.5rem; z-index:10;
     }
 
     .dept { font-size:1.8rem; color:#00ffff; letter-spacing:7px; margin-bottom:12px; font-weight:900; text-shadow:0 0 25px #00ffff; }
-    .presents { font-family:'Dancing Script',cursive; font-size:4.8rem; color:#ff6b6b; margin:8px 0 20px;
-                text-shadow:0 0 45px rgba(255,107,107,0.8); animation:float 4s ease-in-out infinite; }
+    .presents { font-family:'Dancing Script',cursive; font-size:4.8rem; color:#ff6b6b; margin:8px 0 20px; text-shadow:0 0 45px rgba(255,107,107,0.8); animation:float 4s ease-in-out infinite; }
 
-    h1 { font-size:7rem; font-weight:900; letter-spacing:10px;
-         background:linear-gradient(90deg,#00ffff,#8a2be2,#ff00ff,#ffff00,#00ffff);
-         background-size:400%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-         animation:rainbow 12s linear infinite; text-shadow:0 0 70px rgba(138,43,226,0.7); }
+    h1 { font-size:7rem; font-weight:900; letter-spacing:10px; background:linear-gradient(90deg,#00ffff,#8a2be2,#ff00ff,#ffff00,#00ffff); background-size:400%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:rainbow 12s linear infinite; text-shadow:0 0 70px rgba(138,43,226,0.7); }
 
     .launch-btn {
       margin-top:40px; padding:24px 90px; font-size:2.8rem; font-weight:bold; cursor:pointer;
@@ -76,51 +69,25 @@
     /* Countdown */
     .countdown-wrapper { position:relative; width:500px; height:500px; margin:0 auto; }
     .circle-bg { fill:none; stroke:#111; stroke-width:18; }
-    .circle-progress {
-      fill:none; stroke:url(#grad); stroke-width:20; stroke-linecap:round;
-      transform:rotate(-90deg); transform-origin:center;
-      stroke-dasharray:1445; stroke-dashoffset:1445; transition:stroke-dashoffset .9s ease;
-    }
-    #timer {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      font-size:13rem; font-weight:900;
-      background:linear-gradient(45deg,#00ffff,#ff00ff,#ffff00);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow:0 0 110px rgba(0,255,255,0.9);
-    }
+    .circle-progress { fill:none; stroke:url(#grad); stroke-width:20; stroke-linecap:round; transform:rotate(-90deg); transform-origin:center; stroke-dasharray:1445; stroke-dashoffset:1445; transition:stroke-dashoffset .9s ease; }
+    #timer { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:13rem; font-weight:900; background:linear-gradient(45deg,#00ffff,#ff00ff,#ffff00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 0 110px rgba(0,255,255,0.9); }
 
     /* Success screen */
-    .congrats {
-      font-size:6.5rem; font-weight:900; letter-spacing:14px; margin-bottom:35px; line-height:1.1;
-      background:linear-gradient(90deg,#ff006e,#ff8c00,#ffff00,#00ff00,#00ffff,#8a2be2,#ff00ff);
-      background-size:600%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      animation:rainbow 6s ease infinite; opacity:0; transform:scale(0.4);
-      transition:all 1.8s cubic-bezier(.175,.885,.32,1.6);
-    }
+    .congrats { font-size:6.5rem; font-weight:900; letter-spacing:14px; margin-bottom:35px; line-height:1.1; background:linear-gradient(90deg,#ff006e,#ff8c00,#ffff00,#00ff00,#00ffff,#8a2be2,#ff00ff); background-size:600%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:rainbow 6s ease infinite; opacity:0; transform:scale(0.4); transition:all 1.8s cubic-bezier(.175,.885,.32,1.6); }
 
-    .view-results-btn {
-      margin:40px auto 60px; padding:20px 70px; font-size:2.2rem; font-weight:bold;
-      background:linear-gradient(45deg,#00ffff,#8a2be2); border:none; border-radius:60px;
-      color:#000; cursor:pointer; box-shadow:0 0 50px rgba(0,255,255,0.7);
-      transition:0.4s;
-    }
+    .view-results-btn { margin:40px auto 60px; padding:20px 70px; font-size:2.2rem; font-weight:bold; background:linear-gradient(45deg,#00ffff,#8a2be2); border:none; border-radius:60px; color:#000; cursor:pointer; box-shadow:0 0 50px rgba(0,255,255,0.7); transition:0.4s; }
     .view-results-btn:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(0,255,255,1); }
 
-    .cards-container {
-      display:flex; flex-wrap:wrap; justify-content:center; gap:28px; max-width:1400px; opacity:0;
-      transition:opacity 1.2s ease;
-    }
+    .cards-container { display:flex; flex-wrap:wrap; justify-content:center; gap:28px; max-width:1400px; opacity:0; transition:opacity 1.2s ease; }
     .cards-container.visible { opacity:1; }
 
-    .flip-card {
-      background:transparent; width:360px; height:260px; perspective:1000px;
-    }
+    .flip-card { background:transparent; width:360px; height:260px; perspective:1000px; cursor:pointer; }
     .flip-card-inner {
       position:relative; width:100%; height:100%; text-align:center;
-      transition:transform 0.7s; transform-style:preserve-3d; box-shadow:0 8px 30px rgba(0,0,0,0.5);
-      border-radius:16px; cursor:pointer;
+      transition:transform 0.8s; transform-style:preserve-3d; box-shadow:0 8px 30px rgba(0,0,0,0.5);
+      border-radius:16px;
     }
-    .flip-card:hover .flip-card-inner { transform:rotateY(180deg); }
+    .flipped .flip-card-inner { transform:rotateY(180deg); }
 
     .flip-card-front, .flip-card-back {
       position:absolute; width:100%; height:100%; -webkit-backface-visibility:hidden; backface-visibility:hidden;
@@ -198,42 +165,42 @@
 
       <div class="cards-container" id="cards" style="display:none;">
         <!-- Paper Presentation -->
-        <div class="flip-card">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <h3>PAPER PRESENTATION</h3>
             </div>
             <div class="flip-card-back">
-              <div class="winner">Winner: [Name / Team Name]</div>
-              <div class="runnerup">Runner-up: [Name / Team Name]</div>
+              <div class="winner">🏆 Winner: [Name / Team Name]</div>
+              <div class="runnerup">🥈 Runner-up: [Name / Team Name]</div>
               <div class="desc">Innovative research with strong methodology and real-world impact</div>
             </div>
           </div>
         </div>
 
         <!-- Poster Presentation -->
-        <div class="flip-card">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <h3>POSTER PRESENTATION</h3>
             </div>
             <div class="flip-card-back">
-              <div class="winner">Winner: [Name / Team Name]</div>
-              <div class="runnerup">Runner-up: [Name / Team Name]</div>
+              <div class="winner">🏆 Winner: [Name / Team Name]</div>
+              <div class="runnerup">🥈 Runner-up: [Name / Team Name]</div>
               <div class="desc">Visually compelling design with clear explanation of complex ideas</div>
             </div>
           </div>
         </div>
 
         <!-- Startup Expo -->
-        <div class="flip-card">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <h3>STARTUP EXPO</h3>
             </div>
             <div class="flip-card-back">
-              <div class="winner">Winner: [Startup / Team Name]</div>
-              <div class="runnerup">Runner-up: [Startup / Team Name]</div>
+              <div class="winner">🏆 Winner: [Startup / Team Name]</div>
+              <div class="runnerup">🥈 Runner-up: [Startup / Team Name]</div>
               <div class="desc">Most promising prototype with viable business model and scalability</div>
             </div>
           </div>
